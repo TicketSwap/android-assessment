@@ -1,7 +1,7 @@
 # TicketSwap Android Assessment
 You are probably familiar with the Spotify service. It’s the biggest music streaming platform in the world and they have a nice and well documented API that you will be using in this assignment.
 
-We tried to create an Android application which would allow us to log in and search for artists and tracks on Spotify. But we only had 20 minutes to build it and this project is the final result! Maybe you can help us finish it?
+We tried to create an Android application which would allow us to log in and search for artists and tracks on Spotify. But we only had 20 minutes to build it and this project is the final result! Your task is to help us make some improvements to the quality of the code, and the functionality, robustness and UI of the app.
 
 We want the app to consist of the following parts:
 
