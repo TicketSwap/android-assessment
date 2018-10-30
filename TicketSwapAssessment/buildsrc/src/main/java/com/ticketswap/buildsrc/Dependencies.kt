@@ -1,11 +1,11 @@
 object Version {
     const val kotlinVersion = "1.2.71"
-    const val androidGradleVersion = "3.2.0"
+    const val androidGradleVersion = "3.2.1"
     const val constraintLayoutVersion = "1.1.3"
     const val multiDescVersion = "1.0.3"
 
     // Compile dependencies
-    const val supportVersion = "28.0.0-rc01"
+    const val supportVersion = "28.0.0"
     const val daggerVersion = "2.14.1"
 
     // Unit tests
@@ -39,7 +39,7 @@ object Dependencies {
     val androidGradle = "com.android.tools.build:gradle:${Version.androidGradleVersion}"
     val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlinVersion}"
 
-    val buildToolsVersion = "27.0.3"
+    val buildToolsVersion = "28.0.2"
     val minSdkVersion = 23
     val targetSdkVersion = 28
     val compileSdkVersion = 28

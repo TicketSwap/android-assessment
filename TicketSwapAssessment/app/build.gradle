@@ -15,11 +15,7 @@ android {
         versionCode Dependencies.versionCode
         versionName Dependencies.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath false
-            }
-        }
+
     }
 
     compileOptions {
