@@ -32,6 +32,7 @@ object Version {
     // Android Architecture
     val lifecycleVersion = "1.1.1"
     val navigationVersion = "1.0.0-alpha06"
+    const val roomVersion = "1.1.1"
 }
 
 object Dependencies {
@@ -98,4 +99,7 @@ object TestLibs {
 object ArchComponents{
     val navigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Version.navigationVersion}"
     val navigationUi = "android.arch.navigation:navigation-ui-ktx:${Version.navigationVersion}"
+    val viewModelLiveData = "android.arch.lifecycle:extensions:${Version.lifecycleVersion}"
+    val room = "android.arch.persistence.room:runtime:${Version.roomVersion}"
+    val roomProcessor = "android.arch.persistence.room:compiler:${Version.roomVersion}"
 }
