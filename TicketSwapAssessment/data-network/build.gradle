@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation Square.okhttp
+    implementation Reactive.rxJava2
+    implementation Libs.kotlin_std
+    implementation Square.moshi
+    implementation Square.moshi_kotlin
+
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
