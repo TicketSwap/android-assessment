@@ -31,14 +31,14 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation Libs.kotlin_std
     implementation Libs.kotlin_reflect
     implementation Libs.appcompat
     implementation Libs.support
     implementation Libs.constraint_layout
     implementation Libs.design
-
+    implementation ArchComponents.viewModelLiveData
     // Network
     implementation Square.retrofit
     implementation Square.moshi_retrofit
@@ -48,29 +48,24 @@ dependencies {
     implementation Square.okhttp
     implementation Square.okhttp_intercepter
     implementation Square.picasso
-
     // RxJava
     implementation Reactive.rxJava2
     implementation Reactive.rxAndroid
-
     // Log
     implementation Square.timber
-
     // Dagger
     implementation Di.dagger
     implementation Di.dagger_android
     implementation Di.dagger_android_support
     kapt Di.dagger_compiler
     kapt Di.dagger_android_processor
-
     // Spotify
     implementation Spotify.spotify
-
     //Test
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.runner
     testImplementation TestLibs.mockito
     testImplementation TestLibs.mockito_kotlin
     androidTestImplementation TestLibs.espresso
-
+    implementation project(':data_persistance')
 }
