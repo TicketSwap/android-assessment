@@ -1,0 +1,15 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation Libs.kotlin_std
+    implementation Reactive.rxJava2
+    implementation Square.okhttp
+    implementation Square.moshi
+    implementation Square.moshi_kotlin
+    implementation project(":data-network")
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
