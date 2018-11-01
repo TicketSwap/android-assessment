@@ -39,6 +39,8 @@ dependencies {
     implementation Libs.constraint_layout
     implementation Libs.design
     implementation ArchComponents.viewModelLiveData
+    implementation ArchComponents.navigationFragment
+    implementation ArchComponents.navigationUi
     // Network
     implementation Square.retrofit
     implementation Square.moshi_retrofit
@@ -68,4 +70,5 @@ dependencies {
     testImplementation TestLibs.mockito_kotlin
     androidTestImplementation TestLibs.espresso
     implementation project(':data_persistance')
+    implementation project(':repository')
 }
