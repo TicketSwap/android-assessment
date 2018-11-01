@@ -7,15 +7,22 @@ import com.ticketswap.assessment.datanetwork.model.TrackInfoResponse
 import io.reactivex.Single
 
 class ClientImpl(private val networkClient: NetworkClient) : SpotifyApi {
-    override fun search(url: String, method: String, queryParams: Map<String, String>): Single<SearchResponse> =
-            Single.just(networkClient.request(url, method, queryParams, null,
-                    Nothing::class.java, SearchResponse::class.java))
+    override fun search(url: String, method: String,
+                        queryParams: Map<String, String>): Single<SearchResponse> = Single.defer {
+        Single.just(networkClient.request(url, method, queryParams, null,
+                Nothing::class.java, SearchResponse::class.java))
+    }
+
 
     override fun trackInfo(url: String, id: String, method: String): Single<TrackInfoResponse> =
-            Single.just(networkClient.request(url, method, mapOf(),
-                    null, Nothing::class.java, TrackInfoResponse::class.java))
+            Single.defer {
+                Single.just(networkClient.request(url, method, mapOf(),
+                        null, Nothing::class.java, TrackInfoResponse::class.java))
+            }
 
     override fun artistInfo(url: String, id: String, method: String): Single<ArtistInfoResponse> =
-            Single.just(networkClient.request(url, method, mapOf(), null,
-                    Nothing::class.java, ArtistInfoResponse::class.java))
+            Single.defer {
+                Single.just(networkClient.request(url, method, mapOf(), null,
+                        Nothing::class.java, ArtistInfoResponse::class.java))
+            }
 }
