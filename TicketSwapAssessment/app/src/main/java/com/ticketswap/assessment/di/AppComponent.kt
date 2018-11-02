@@ -1,6 +1,7 @@
 package com.ticketswap.assessment.di
 
 import com.ticketswap.assessment.App
+import com.ticketswap.assessment.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -9,8 +10,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AppModule::class, ActivityModule::class, AndroidSupportInjectionModule::class])
-
+@Component(modules = [AppModule::class, ActivityModule::class,
+    AndroidSupportInjectionModule::class, ViewModelModule::class, FragmentModule::class])
 interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     interface Builder {
