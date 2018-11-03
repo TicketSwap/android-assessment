@@ -2,6 +2,7 @@ package com.ticketswap.assessment.view.splash
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class SplashFragment : BaseFragment() {
@@ -24,20 +24,19 @@ class SplashFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidSupportInjection.inject(this)
-        splashViewModel = viewModelFactory.create(SplashViewModel::class.java)
+        splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        splashViewModel.isUserAuthenticated.observe(this, Observer { authenticated ->
-            authenticated?.also {
-                if (it) {
-                    findNavController().navigate(R.id.loginFragment)
-                    return@Observer
-                }
-                findNavController().navigate(R.id.searchFragment)
-            }
+
+        splashViewModel.checkUserIsAuthorized()
+
+        splashViewModel.navigateToSearch.observe(this, Observer {
+            findNavController().navigate(R.id.loginFragment)
+        })
+        splashViewModel.navigateToLogin.observe(this, Observer {
+            findNavController().navigate(R.id.searchFragment)
         })
     }
 }
