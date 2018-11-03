@@ -2,7 +2,6 @@ package com.ticketswap.assessment
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.ticketswap.assessment.view.login.LoginViewModel
 import com.ticketswap.assessment.view.splash.SplashViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -28,11 +27,6 @@ abstract class ViewModelModule {
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(LoginViewModel::class)
-    internal abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
 
     @Binds
     @IntoMap

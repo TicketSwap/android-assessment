@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class SplashFragment : BaseFragment() {
@@ -23,6 +24,7 @@ class SplashFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
         splashViewModel = viewModelFactory.create(SplashViewModel::class.java)
     }
 
