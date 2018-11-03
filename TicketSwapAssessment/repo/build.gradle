@@ -28,11 +28,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation 'junit:junit:4.12'
-    implementation Libs.kotlin_std
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation ArchComponents.viewModelLiveData
     implementation ArchComponents.room
     annotationProcessor ArchComponents.roomProcessor
     implementation Reactive.rxJava2
-    implementation project(':data_persistance')
-    implementation project(':repo')
 }

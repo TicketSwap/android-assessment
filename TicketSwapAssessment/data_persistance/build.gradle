@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion Dependencies.compileSdkVersion
 
@@ -29,4 +29,5 @@ dependencies {
     implementation ArchComponents.room
     annotationProcessor ArchComponents.roomProcessor
     implementation ArchComponents.viewModelLiveData
+    implementation Reactive.rxJava2
 }

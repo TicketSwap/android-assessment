@@ -73,6 +73,6 @@ dependencies {
     testImplementation TestLibs.mockito_kotlin
     androidTestImplementation TestLibs.espresso
     implementation project(':data_persistance')
-    implementation project(':repository')
+    implementation project(':repo')
     implementation project(':repository_room')
 }
