@@ -1,1 +1,1 @@
-include ':app', ':data-network', ':domain', ':data_persistance', ':network_client', ':repository'
+include ':app', ':data-network', ':domain', ':data_persistance', ':network_client', ':repository', ':repository_room'
