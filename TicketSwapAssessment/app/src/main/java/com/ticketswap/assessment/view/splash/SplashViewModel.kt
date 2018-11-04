@@ -23,7 +23,7 @@ class SplashViewModel @Inject constructor(val userAuthenticatedRepository: UserA
             return
         }
 
-        if (state.token == null) {
+        if (state.token.isNullOrEmpty()) {
             navigateToLogin.value = Unit
             return
         }
@@ -34,4 +34,3 @@ class SplashViewModel @Inject constructor(val userAuthenticatedRepository: UserA
 }
 
 data class SplashState(val token: String? = null, val err: Throwable? = null)
-

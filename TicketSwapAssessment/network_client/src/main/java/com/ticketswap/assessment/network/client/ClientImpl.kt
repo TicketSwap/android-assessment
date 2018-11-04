@@ -7,7 +7,7 @@ import com.ticketswap.assessment.datanetwork.model.TrackInfoResponse
 import io.reactivex.Single
 
 /**
- * an implementation for SpotifyApi with okhttpclient
+ * an implementation for {@link SpotifyApi} with okhttpclient
  */
 class ClientImpl(private val networkClient: NetworkClient) : SpotifyApi {
     override fun search(url: String, method: String,
