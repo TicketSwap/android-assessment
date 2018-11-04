@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
 
@@ -14,7 +16,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -31,7 +36,7 @@ dependencies {
     implementation Libs.kotlin_std
     implementation ArchComponents.viewModelLiveData
     implementation ArchComponents.room
-    annotationProcessor ArchComponents.roomProcessor
+    kapt ArchComponents.roomProcessor
     implementation Reactive.rxJava2
     implementation project(':data_persistance')
     implementation project(':repo')

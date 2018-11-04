@@ -4,6 +4,9 @@ import com.squareup.moshi.Moshi
 import okhttp3.*
 import java.io.IOException
 
+/**
+ * simple network client based on the okhttpclient, moshi and rxjava
+ */
 class NetworkClient(private val okHttpClient: OkHttpClient, private val moshi: Moshi) {
     fun <T, P> request(url: String, method: String,
                        queryParams: Map<String, String>, body: T?, bodyClass: Class<T>, responseClass: Class<P>,

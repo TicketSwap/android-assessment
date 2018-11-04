@@ -33,10 +33,10 @@ class SplashFragment : BaseFragment() {
         splashViewModel.checkUserIsAuthorized()
 
         splashViewModel.navigateToSearch.observe(this, Observer {
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().navigate(R.id.searchFragment)
         })
         splashViewModel.navigateToLogin.observe(this, Observer {
-            findNavController().navigate(R.id.searchFragment)
+            findNavController().navigate(R.id.loginFragment)
         })
     }
 }

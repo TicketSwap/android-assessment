@@ -5,6 +5,9 @@ import com.ticketswap.assessment.datanetwork.model.SearchResponse
 import com.ticketswap.assessment.datanetwork.model.TrackInfoResponse
 import io.reactivex.Single
 
+/**
+ * interface for api calls
+ */
 interface SpotifyApi {
     fun search(url: String = "v1/search", method: String = "GET", queryParams: Map<String, String>): Single<SearchResponse>
     fun trackInfo(url: String = "v1/tracks/{id}", id: String, method: String = "GET"): Single<TrackInfoResponse>

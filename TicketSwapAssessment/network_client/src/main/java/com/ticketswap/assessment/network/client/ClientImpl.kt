@@ -6,6 +6,9 @@ import com.ticketswap.assessment.datanetwork.model.SearchResponse
 import com.ticketswap.assessment.datanetwork.model.TrackInfoResponse
 import io.reactivex.Single
 
+/**
+ * an implementation for SpotifyApi with okhttpclient
+ */
 class ClientImpl(private val networkClient: NetworkClient) : SpotifyApi {
     override fun search(url: String, method: String,
                         queryParams: Map<String, String>): Single<SearchResponse> = Single.defer {

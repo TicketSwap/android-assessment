@@ -9,8 +9,15 @@ import com.ticketswap.assessment.repo.UserAuthenticatedRepository
 import com.ticketswap.assessment.repository_room.UserAuthenticatedRepositoryImpl
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Named
 import javax.inject.Singleton
 
+/**
+ * provides all the app level dependencies
+ */
 @Module(includes = [ViewModelModule::class])
 class AppModule {
     @Provides
@@ -21,14 +28,18 @@ class AppModule {
     internal fun providedao(context: Context): UserDao = Room
             .databaseBuilder(context, SpotifyDatabase::class.java, "spotify-client").build().userDao
 
-    //    @Singleton
-//    @Provides
-//    fun provideUserDao(spotifyDatabase: SpotifyDatabase): UserDao = spotifyDatabase.userDao
-//    //
-//
+    @Singleton
     @Provides
-    fun provideUserAuthenticatedRepo(userDao: UserDao): UserAuthenticatedRepository = UserAuthenticatedRepositoryImpl(userDao)
+    @Named("io")
+    fun provideIO() = Schedulers.io()
 
-//    @Provides
-//    fun provideSplashViewModel(userAuthenticatedRepository: UserAuthenticatedRepository) = SplashViewModel(userAuthenticatedRepository)
+    @Singleton
+    @Provides
+    @Named("main")
+    fun provideMainScheduler() = AndroidSchedulers.mainThread()
+
+    @Provides
+    fun provideUserAuthenticatedRepo(userDao: UserDao, @Named("io") io: Scheduler, @Named("main") main: Scheduler): UserAuthenticatedRepository =
+            UserAuthenticatedRepositoryImpl(userDao, io, main)
+
 }

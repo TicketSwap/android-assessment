@@ -14,13 +14,12 @@ class SplashViewModel @Inject constructor(val userAuthenticatedRepository: UserA
                     render(state)
                 })
 
-
-        navigateToSearch.value = Unit
     }
 
     private fun render(state: SplashState) {
         if (state.err != null) {
             errorLiveData.value = state.err
+            navigateToLogin.value = Unit
             return
         }
 

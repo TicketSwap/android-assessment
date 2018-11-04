@@ -2,6 +2,7 @@ package com.ticketswap.assessment.view.search
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,6 +26,8 @@ class SearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        edit_text_search_input.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null,
+                ContextCompat.getDrawable(context!!, R.drawable.ic_search), null)
         edit_text_search_input.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 searchViewModel.searchInputChanged(p0.toString())

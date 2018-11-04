@@ -2,16 +2,15 @@ package com.ticketswap.assessment.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.ticketswap.assessment.view.splash.SplashViewModel
-import dagger.Binds
 import dagger.MapKey
-import dagger.Module
-import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 import kotlin.reflect.KClass
 
+/**
+ * a generic factory class for injecting view model classes with dagger's multibinding
+ */
 @Singleton
 class ViewModelFactory @Inject constructor(private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>) : ViewModelProvider.Factory {
 
@@ -22,16 +21,3 @@ class ViewModelFactory @Inject constructor(private val viewModels: MutableMap<Cl
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @MapKey
 annotation class ViewModelKey(val value: KClass<out ViewModel>)
-
-@Module
-abstract class ViewModelModule {
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SplashViewModel::class)
-    abstract fun splashViewModel(viewModel: SplashViewModel): ViewModel
-    //Add more ViewModels here
-}

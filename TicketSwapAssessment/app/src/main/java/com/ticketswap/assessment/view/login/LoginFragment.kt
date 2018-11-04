@@ -2,7 +2,7 @@ package com.ticketswap.assessment.view.login
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Intent
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +24,14 @@ class LoginFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_login, container, false)
 
+    private lateinit var loginHelperViewModel: LoginHelperViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginViewModel = viewModelFactory.create(LoginViewModel::class.java)
+        loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
+        activity?.run {
+            loginHelperViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginHelperViewModel::class.java)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,12 +43,14 @@ class LoginFragment : BaseFragment() {
         loginViewModel.navigateToSearch.observe(this, Observer {
             findNavController().navigate(R.id.searchFragment)
         })
+
+        loginViewModel.isLoginClicked.observe(this, Observer {
+            SpotifyLoginHelper.requestLoginActivity(activity!!)
+        })
+
+        loginHelperViewModel.navigateToSearch.observe(this, Observer {
+            findNavController().navigate(R.id.searchFragment)
+        })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val spotifyLogin = SpotifyLoginHelper(activity!!, requestCode, resultCode, data)
-        val response = spotifyLogin.extractData()
-        loginViewModel.checkLoginStatus(response)
-    }
 }

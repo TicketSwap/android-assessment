@@ -42,7 +42,7 @@ dependencies {
     implementation ArchComponents.navigationFragment
     implementation ArchComponents.navigationUi
 
-    annotationProcessor ArchComponents.roomProcessor
+    kapt ArchComponents.roomProcessor
     implementation ArchComponents.room
     // Network
     implementation Square.retrofit
