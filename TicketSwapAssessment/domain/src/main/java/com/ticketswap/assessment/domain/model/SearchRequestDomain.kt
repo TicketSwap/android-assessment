@@ -1,3 +1,4 @@
 package com.ticketswap.assessment.domain.model
 
-data class SearchRequestDomain(val foo: String)
+data class SearchRequestDomain(val query: String?,
+                               val type: String)

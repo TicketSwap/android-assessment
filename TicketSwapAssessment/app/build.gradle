@@ -75,4 +75,5 @@ dependencies {
     implementation project(':data_persistance')
     implementation project(':repo')
     implementation project(':repository_room')
+    implementation project(':domain')
 }
