@@ -1,8 +1,11 @@
 package com.ticketswap.assessment.view.search
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,15 +13,31 @@ import android.view.View
 import android.view.ViewGroup
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
+import com.ticketswap.assessment.view.image.ImageLoader
 import kotlinx.android.synthetic.main.fragment_search.*
+import javax.inject.Inject
 
 class SearchFragment : BaseFragment() {
 
+    @Inject
+    lateinit var facotry: ViewModelProvider.Factory
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private lateinit var searchViewModel: SearchViewModel
+
+    private lateinit var adapter: SearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        searchViewModel = ViewModelProviders.of(this, facotry).get(SearchViewModel::class.java)
+        adapter = SearchAdapter(imageLoader, R.drawable.placeholder) {
+            itemClicked(it)
+        }
+    }
+
+    private fun itemClicked(item: SearchAdapterItem) {
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -26,6 +45,7 @@ class SearchFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindViewModel(searchViewModel)
         edit_text_search_input.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null,
                 ContextCompat.getDrawable(context!!, R.drawable.ic_search), null)
         edit_text_search_input.addTextChangedListener(object : TextWatcher {
@@ -37,6 +57,16 @@ class SearchFragment : BaseFragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        recycler_view_search_list.adapter = adapter
+        recycler_view_search_list.layoutManager = LinearLayoutManager(context)
+
+
+        searchViewModel.itemsList.observe(this, Observer {
+            it?.also {
+                adapter.updateItems(it)
             }
         })
     }

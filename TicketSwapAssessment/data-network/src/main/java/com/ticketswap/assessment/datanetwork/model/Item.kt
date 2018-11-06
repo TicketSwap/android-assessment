@@ -3,7 +3,7 @@ package com.ticketswap.assessment.datanetwork.model
 import com.squareup.moshi.Json
 
 data class Item(
-        @Json(name = "external_urls") val externalUrls: ExternalUrls,
+        @Json(name = "external_urls") val externalUrls: ExternalUrls?,
         @Json(name = "genres") val genres: List<Any>,
         @Json(name = "href") val href: String,
         @Json(name = "id") val id: String,

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.ticketswap.assessment.view.login.LoginHelperViewModel
 import com.ticketswap.assessment.view.login.LoginViewModel
+import com.ticketswap.assessment.view.search.SearchViewModel
 import com.ticketswap.assessment.view.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
@@ -32,4 +33,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginHelperViewModel::class)
     abstract fun loginhelper(viewModel: LoginHelperViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun search(viewModel: SearchViewModel): ViewModel
 }

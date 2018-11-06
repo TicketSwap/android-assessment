@@ -26,16 +26,21 @@ class LoginFragment : BaseFragment() {
 
     private lateinit var loginHelperViewModel: LoginHelperViewModel
 
+    private var clearUserInfo: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
         activity?.run {
             loginHelperViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginHelperViewModel::class.java)
         }
+        clearUserInfo = arguments?.getBoolean("clear", false) ?: false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loginViewModel.clearDatabase(clearUserInfo)
         button_login_spotify.setOnClickListener {
             loginViewModel.loginClicked()
         }

@@ -76,4 +76,9 @@ dependencies {
     implementation project(':repo')
     implementation project(':repository_room')
     implementation project(':domain')
+    implementation project(':network_client')
+    implementation project(':domainokhttp')
+    implementation project(':data-network')
+
+    implementation Square.okhttp_intercepter
 }

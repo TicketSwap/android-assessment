@@ -1,7 +1,7 @@
 package com.ticketswap.assessment.domain.model
 
 data class ItemDomain(
-        val externalUrls: ExternalUrlsDomain,
+        val externalUrls: ExternalUrlsDomain?,
         val genres: List<Any>,
         val href: String,
         val id: String,

@@ -1,38 +1,38 @@
 package com.ticketswap.assessment.data.persistance.entity
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
 @Entity
 data class ArtistEntity(
         @PrimaryKey
-        val id: String,
-        val externalUrls: ExternalUrlEntity,
-        val genres: List<String>,
-        val href: String,
-        val images: List<ImageEntity>,
-        val name: String,
-        val popularity: Int,
-        val type: String,
-        val uri: String
+        var id: String = "",
+        @Ignore
+        val externalUrls: ExternalUrlEntity? = null,
+        @Ignore
+        val genres: List<String> = listOf(),
+        var href: String = "",
+        @Ignore
+        val images: List<ImageEntity> = listOf(),
+        var name: String = "",
+        var popularity: Int = 0,
+        var type: String = "",
+        var uri: String = ""
 )
 
 @Entity(foreignKeys = [ForeignKey(entity = ArtistEntity::class, parentColumns = ["id"],
         childColumns = ["artist_id"])])
 data class ExternalUrlEntity(
-        @PrimaryKey(autoGenerate = true) val id: Int,
-        @ColumnInfo(name = "artist_id") val parentId: String,
-        val spotify: String
+        @PrimaryKey(autoGenerate = true) var id: Int,
+        @ColumnInfo(name = "artist_id") var parentId: String = "",
+        var spotify: String = ""
 )
 
 @Entity(foreignKeys = [ForeignKey(entity = ArtistEntity::class, parentColumns = ["id"],
         childColumns = ["artist_id"])])
 data class ImageEntity(
-        @PrimaryKey(autoGenerate = true) val id: Int,
-        @ColumnInfo(name = "parent_id") val parentId: String,
-        val height: Int,
-        val url: String,
-        val width: Int
+        @PrimaryKey(autoGenerate = true) var id: Int,
+        @ColumnInfo(name = "artist_id") var parentId: String = "",
+        var height: Int = 0,
+        var url: String = "",
+        var width: Int = 0
 )

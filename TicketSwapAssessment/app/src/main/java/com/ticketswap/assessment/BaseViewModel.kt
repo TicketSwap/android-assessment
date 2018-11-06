@@ -10,7 +10,7 @@ abstract class BaseViewModel : ViewModel() {
      * keeps track of all the disposables
      */
     private val disposables: CompositeDisposable = CompositeDisposable()
-    protected val errorLiveData: MutableLiveData<Throwable> = MutableLiveData()
+    val errorLiveData: MutableLiveData<Throwable> = MutableLiveData()
 
     /**
      * clear disposables and thus stop any api call and etc.

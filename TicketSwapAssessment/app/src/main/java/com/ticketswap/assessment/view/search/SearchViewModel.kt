@@ -7,38 +7,48 @@ import com.ticketswap.assessment.domain.model.SearchRequestDomain
 import com.ticketswap.assessment.domain.usecase.SearchUseCase
 import com.ticketswap.assessment.repo.InsertArtistRepository
 import com.ticketswap.assessment.repo.SearchRepository
+import io.reactivex.Maybe
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import javax.inject.Named
 
 class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCase,
                                           private val searchRepository: SearchRepository,
-                                          private val insertArtistRepository: InsertArtistRepository) : BaseViewModel() {
+                                          private val insertArtistRepository: InsertArtistRepository,
+                                          @Named("io") private val io: Scheduler,
+                                          @Named("main") private val main: Scheduler) : BaseViewModel() {
 
-    val itemsList = MutableLiveData<List<SearchItem>>()
+    val itemsList = MutableLiveData<List<SearchAdapterItem>>()
 
     private var d: Disposable? = null
 
     fun searchInputChanged(searchText: String) {
         d?.dispose()
-        d = Single.timer(1000, TimeUnit.MILLISECONDS).flatMap {
+        d = Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
+            Single.timer(1000, TimeUnit.MILLISECONDS)
+        }.flatMap {
             searchUseCase.execute(SearchRequestDomain(searchText, "artist"))
         }.map {
             SearchState(result = it.artists.items.map {
-                SearchItem(it.name, it.id)
+                SearchItem(it.name, it.id, it.images.firstOrNull()?.url)
             })
+        }.subscribeOn(io).observeOn(main).doOnSubscribe {
+            update(it)
         }.onErrorReturn { SearchState(ex = it, result = listOf()) }.subscribe { t ->
             render(t)
         }
 
-        if (d != null) {
-            update(d!!)
-        }
     }
 
     private fun render(item: SearchState) {
-        itemsList.value = item.result
+        item.result.map {
+            SearchAdapterItem(it.id, it.image, it.name, SearchItemType.LOCAL)
+        }.apply {
+            itemsList.value = this
+        }
         errorLiveData.value = item.ex
     }
 

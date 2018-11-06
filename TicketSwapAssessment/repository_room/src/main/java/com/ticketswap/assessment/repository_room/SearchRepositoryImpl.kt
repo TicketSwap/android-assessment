@@ -10,7 +10,7 @@ class SearchRepositoryImpl(private val artistDao: ArtistDao) : SearchRepository(
             artistDao.search("%${param.query}%").map {
                 ArtistsDb(it.map {
                     ItemDb(
-                            ExternalUrlDb(it.externalUrls.spotify),
+                            ExternalUrlDb(it.externalUrls?.spotify ?: ""),
                             it.genres,
                             it.href,
                             it.id.toString(),

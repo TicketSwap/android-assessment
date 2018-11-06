@@ -4,4 +4,5 @@
     <string name="com_spotify_sdk_redirect_host">ticketswap-spotify</string>
     <string name="login_with_spotify">Login with spotify</string>
     <string name="redirect_for_login">You will be redirected to Spotify Login page</string>
+    <string name="enter_artist_name">Enter artist name</string>
 </resources>

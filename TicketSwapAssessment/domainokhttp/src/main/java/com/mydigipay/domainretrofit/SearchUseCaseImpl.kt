@@ -18,7 +18,7 @@ class SearchUseCaseImpl(private val spotifyApi: SpotifyApi) : SearchUseCase() {
                                 response.artists.href,
                                 response.artists.items.map { item ->
                                     ItemDomain(
-                                            ExternalUrlsDomain(item.externalUrls.spotify),
+                                            item.externalUrls?.let { ExternalUrlsDomain(it.spotify) },
                                             item.genres,
                                             item.href,
                                             item.id,

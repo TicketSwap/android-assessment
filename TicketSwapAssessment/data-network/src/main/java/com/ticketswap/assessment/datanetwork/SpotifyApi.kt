@@ -9,7 +9,7 @@ import io.reactivex.Single
  * interface for api calls
  */
 interface SpotifyApi {
-    fun search(url: String = "v1/search", method: String = "GET", queryParams: Map<String, String>): Single<SearchResponse>
-    fun trackInfo(url: String = "v1/tracks/{id}", id: String, method: String = "GET"): Single<TrackInfoResponse>
-    fun artistInfo(url: String = "v1/artists/{id}", id: String, method: String = "GET"): Single<ArtistInfoResponse>
+    fun search(url: String = "search", method: String = "GET", queryParams: Map<String, String>): Single<SearchResponse>
+    fun trackInfo(url: String = "tracks/{id}", id: String, method: String = "GET"): Single<TrackInfoResponse>
+    fun artistInfo(url: String = "artists/{id}", id: String, method: String = "GET"): Single<ArtistInfoResponse>
 }
