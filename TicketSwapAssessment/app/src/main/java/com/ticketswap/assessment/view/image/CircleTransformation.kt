@@ -5,6 +5,7 @@ import com.squareup.picasso.Transformation
 
 /**
  * @see <a href="https://gist.github.com/julianshen/5829333">gist</a>
+ * Circle transformation for picasso
  */
 class CircleTransform : Transformation {
     override fun transform(source: Bitmap): Bitmap {

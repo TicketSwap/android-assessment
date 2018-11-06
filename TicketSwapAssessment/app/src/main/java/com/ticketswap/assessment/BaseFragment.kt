@@ -18,6 +18,9 @@ abstract class BaseFragment : DaggerFragment() {
     @Inject
     lateinit var moshi: Moshi
 
+    /**
+     * shows snack for giving error message
+     */
     protected fun showSnack(error: String?) {
         if (error != null) Snackbar.make(view!!, error, Snackbar.LENGTH_LONG).apply {
             this.view.setBackgroundColor(ContextCompat.getColor(context, R.color.spotify_green))
@@ -27,6 +30,9 @@ abstract class BaseFragment : DaggerFragment() {
         }.show()
     }
 
+    /**
+     * bind view model for general error handling purposes
+     */
     protected fun bindViewModel(viewModel: BaseViewModel) {
         viewModel.errorLiveData.observe(this, Observer {
             (it as? HttpException)?.let {

@@ -8,6 +8,10 @@ import javax.inject.Inject
 class AuthorizationInterceptor @Inject constructor(
         private val authenticatedRepository: UserAuthenticatedRepository
 ) : Interceptor {
+
+    /**
+     * query database and add authorization token if any exists
+     */
     override fun intercept(chain: Interceptor.Chain): Response =
             chain.request().let { r ->
                 try {

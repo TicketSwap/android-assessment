@@ -4,8 +4,12 @@ import android.content.Context
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
+/**
+ * picasso implementation of imageLoader interface
+ */
 class ImageLoaderPicasso(val context: Context) : ImageLoader {
     override fun load(url: String?, placeHolder: Int, imageView: ImageView) {
-        Picasso.with(context).load(url).transform(CircleTransform()).placeholder(placeHolder).into(imageView)
+        Picasso.with(context).load(url).transform(CircleTransform())
+                .placeholder(placeHolder).into(imageView)
     }
 }
