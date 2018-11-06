@@ -25,17 +25,28 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
                                           @Named("io") private val io: Scheduler,
                                           @Named("main") private val main: Scheduler) : BaseViewModel() {
 
-    private var d: Disposable? = null
+    // we dispose with any text change to prevent many requests to server side
+    private var queryChangeDisposable: Disposable? = null
 
+    /**
+     * @param searchText : text that we want to observe for data changes.
+     * @return LiveData<List<SearchAdapterItem>> UI will listen to database changes and then will
+     * update itself.
+     */
     fun changeObserver(searchText: String) =
             Transformations.map(searchRepository.execute(SearchRequest(searchText, "artist"))) {
                 it.map { SearchAdapterItem(it.id, it.image.firstOrNull()?.url, it.name, SearchItemType.LOCAL) }
             }
 
 
+    /**
+     * @param searchText : text that we want to fetch data from API.
+     * we will fetch data from spotify api. before request anything, we will wait for a second
+     * to ensure that user does not enter any character.
+     */
     fun getArtistsFromCloud(searchText: String) {
-        d?.dispose()
-        d = Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
+        queryChangeDisposable?.dispose()
+        queryChangeDisposable = Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
             Single.timer(1000, TimeUnit.MILLISECONDS)
         }.flatMap {
             searchUseCase.execute(SearchRequestDomain(searchText, "artist"))
@@ -48,6 +59,9 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
         }
     }
 
+    /*
+     * handle the error if we have any error, aside that we will insert data to database
+     */
     private fun render(item: SearchState) {
         if (item.ex != null) {
             errorLiveData.value = item.ex
@@ -58,11 +72,14 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
             ItemDb(it.id, it.images.map { ImageDb(it.height, it.url, it.width) },
                     it.name, it.popularity, it.type, it.uri)
         }).subscribe {
-            Log.d("test", "Test")
+            Log.d("db", "insert artists to database")
         }
     }
 
 }
 
+/**
+ * state for this viewModel
+ */
 data class SearchState(val ex: Throwable? = null, val result: List<ItemDomain>)
 
