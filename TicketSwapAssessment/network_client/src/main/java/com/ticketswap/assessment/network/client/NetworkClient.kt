@@ -10,10 +10,10 @@ import java.io.IOException
 class NetworkClient(private val okHttpClient: OkHttpClient, private val moshi: Moshi,
                     private val baseUrl: String) {
     fun <T, P> request(url: String, method: String,
-                       queryParams: Map<String, String>, body: T?, bodyClass: Class<T>?, responseClass: Class<P>,
+                       queryParams: Map<String, String>, pathParams: Map<String, String>, body: T?, bodyClass: Class<T>?, responseClass: Class<P>,
                        mediaType: String = "application/json; charset=utf-8") =
             parseResponse(okHttpClient.newCall(
-                    buildRequest(url, method, queryParams,
+                    buildRequest(url, method, queryParams, pathParams,
                             if (bodyClass != null) moshi.adapter(bodyClass).toJson(body) else null, mediaType)
             ).execute(), responseClass)
 
@@ -27,10 +27,16 @@ class NetworkClient(private val okHttpClient: OkHttpClient, private val moshi: M
     }
 
     private fun buildRequest(url: String, method: String,
-                             queryParams: Map<String, String>, body: String?,
-                             mediaType: String = "application/json; charset=utf-8"): Request =
+                             queryParams: Map<String, String>, pathParams: Map<String, String>,
+                             body: String?, mediaType: String = "application/json; charset=utf-8"): Request =
             Request.Builder().url(HttpUrl.parse(baseUrl)!!.newBuilder()!!.apply {
-                this.addEncodedPathSegment(url)
+                this.addPathSegments(url.let { t ->
+                    var tmpString = t
+                    pathParams.forEach {
+                        tmpString = tmpString.replace("{${it.key}}", it.value)
+                    }
+                    tmpString
+                })
                 queryParams.forEach { addEncodedQueryParameter(it.key, it.value) }
             }.build()).apply {
                 if (method != "GET" && body != null)

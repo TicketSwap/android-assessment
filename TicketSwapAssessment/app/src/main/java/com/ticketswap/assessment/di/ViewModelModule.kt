@@ -2,6 +2,7 @@ package com.ticketswap.assessment.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.ticketswap.assessment.view.detail.DetailViewModel
 import com.ticketswap.assessment.view.login.LoginHelperViewModel
 import com.ticketswap.assessment.view.login.LoginViewModel
 import com.ticketswap.assessment.view.search.SearchViewModel
@@ -38,4 +39,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun search(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel::class)
+    abstract fun detail(viewModel: DetailViewModel): ViewModel
 }

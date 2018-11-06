@@ -2,6 +2,7 @@ package com.ticketswap.assessment.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.mydigipay.domainretrofit.ArtistUseCaseImpl
 import com.mydigipay.domainretrofit.SearchUseCaseImpl
 import com.squareup.moshi.Moshi
 import com.ticketswap.assessment.App
@@ -10,6 +11,7 @@ import com.ticketswap.assessment.data.persistance.SpotifyDatabase
 import com.ticketswap.assessment.data.persistance.dao.ArtistDao
 import com.ticketswap.assessment.data.persistance.dao.UserDao
 import com.ticketswap.assessment.datanetwork.SpotifyApi
+import com.ticketswap.assessment.domain.usecase.ArtistUseCase
 import com.ticketswap.assessment.domain.usecase.SearchUseCase
 import com.ticketswap.assessment.interceptor.AuthorizationInterceptor
 import com.ticketswap.assessment.network.client.ClientImpl
@@ -109,9 +111,9 @@ class AppModule {
             SearchRepositoryImpl(artistDao)
 
     @Provides
-    fun provideArtistRepository(@Named("artist") artistDao: ArtistDao,
-                                @Named("io") io: Scheduler,
-                                @Named("main") main: Scheduler): InsertArtistRepository =
+    fun provideInsertArtistRepository(@Named("artist") artistDao: ArtistDao,
+                                      @Named("io") io: Scheduler,
+                                      @Named("main") main: Scheduler): InsertArtistRepository =
             InsertArtistRepositoryImpl(artistDao, io, main)
 
     @Provides
@@ -122,4 +124,14 @@ class AppModule {
 
     @Provides
     fun provideImageLoader(context: Context): ImageLoader = ImageLoaderPicasso(context)
+
+    @Provides
+    fun provideArtistRepository(@Named("artist") artistDao: ArtistDao): ArtistRepository =
+            ArtistRepositoryImpl(artistDao)
+
+    @Provides
+    fun provideArtistUseCase(spotifyApi: SpotifyApi,
+                             @Named("io") io: Scheduler,
+                             @Named("main") main: Scheduler): ArtistUseCase =
+            ArtistUseCaseImpl(spotifyApi, io, main)
 }

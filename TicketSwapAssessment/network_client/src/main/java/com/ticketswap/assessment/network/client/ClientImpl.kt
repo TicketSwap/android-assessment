@@ -15,20 +15,22 @@ class ClientImpl(private val networkClient: NetworkClient,
                  private val main: Scheduler) : SpotifyApi {
     override fun search(url: String, method: String,
                         queryParams: Map<String, String>): Single<SearchResponse> = Single.defer {
-        Single.just(networkClient.request(url, method, queryParams, null,
+        Single.just(networkClient.request(url, method, queryParams, mapOf(), null,
                 null, SearchResponse::class.java))
     }.subscribeOn(io).observeOn(main)
 
 
     override fun trackInfo(url: String, id: String, method: String): Single<TrackInfoResponse> =
             Single.defer {
-                Single.just(networkClient.request(url, method, mapOf(),
+                Single.just(networkClient.request(url, method, mapOf(), mapOf(),
                         null, Nothing::class.java, TrackInfoResponse::class.java))
             }.subscribeOn(io).observeOn(main)
 
     override fun artistInfo(url: String, id: String, method: String): Single<ArtistInfoResponse> =
             Single.defer {
-                Single.just(networkClient.request(url, method, mapOf(), null,
-                        Nothing::class.java, ArtistInfoResponse::class.java))
+                Single.just(networkClient.request(url, method, mapOf(), mapOf(
+                        Pair("id", id)
+                ), null,
+                        null, ArtistInfoResponse::class.java))
             }.subscribeOn(io).observeOn(main)
 }

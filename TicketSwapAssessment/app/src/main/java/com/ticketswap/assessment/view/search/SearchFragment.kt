@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
 import com.ticketswap.assessment.view.image.ImageLoader
@@ -38,7 +39,9 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun itemClicked(item: SearchAdapterItem) {
-
+        findNavController().navigate(R.id.detailFragment, Bundle().apply {
+            putString("id", item.id)
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

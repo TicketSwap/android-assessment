@@ -29,11 +29,7 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
             SearchViewHolder(
                     LayoutInflater.from(itemView.context)
                             .inflate(R.layout.item_search, itemView, false)
-            ).apply {
-                itemView.setOnClickListener {
-                    itemClickListener(items[adapterPosition])
-                }
-            }
+            )
 
     override fun getItemCount(): Int = items.count()
 
@@ -49,6 +45,9 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
     }
 
     inner class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener { itemClickListener(items[adapterPosition]) }
+        }
         val image = itemView.findViewById<ImageView>(R.id.image_view_search_item_image)
         val type = itemView.findViewById<ImageView>(R.id.image_view_search_item_type)
         val name = itemView.findViewById<TextView>(R.id.text_view_search_item_name)
