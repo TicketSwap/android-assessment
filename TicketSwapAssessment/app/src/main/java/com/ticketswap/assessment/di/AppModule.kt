@@ -109,8 +109,10 @@ class AppModule {
             SearchRepositoryImpl(artistDao)
 
     @Provides
-    fun provideArtistRepository(@Named("artist") artistDao: ArtistDao): InsertArtistRepository =
-            InsertArtistRepositoryImpl(artistDao)
+    fun provideArtistRepository(@Named("artist") artistDao: ArtistDao,
+                                @Named("io") io: Scheduler,
+                                @Named("main") main: Scheduler): InsertArtistRepository =
+            InsertArtistRepositoryImpl(artistDao, io, main)
 
     @Provides
     fun provideClearUserInfo(@Named("user") userDao: UserDao,

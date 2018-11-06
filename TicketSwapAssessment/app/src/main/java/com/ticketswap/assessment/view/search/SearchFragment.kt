@@ -1,5 +1,6 @@
 package com.ticketswap.assessment.view.search
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -50,7 +51,8 @@ class SearchFragment : BaseFragment() {
                 ContextCompat.getDrawable(context!!, R.drawable.ic_search), null)
         edit_text_search_input.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                searchViewModel.searchInputChanged(p0.toString())
+                observeArtists(searchViewModel.changeObserver(p0.toString()))
+                searchViewModel.getArtistsFromCloud(p0.toString())
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -63,9 +65,15 @@ class SearchFragment : BaseFragment() {
         recycler_view_search_list.adapter = adapter
         recycler_view_search_list.layoutManager = LinearLayoutManager(context)
 
+    }
 
-        searchViewModel.itemsList.observe(this, Observer {
-            it?.also {
+    private var data: LiveData<List<SearchAdapterItem>>? = null
+
+    private fun observeArtists(observable: LiveData<List<SearchAdapterItem>>) {
+        this.data?.removeObservers(this)
+        this.data = observable
+        this.data?.observe(this, Observer {
+            it?.let {
                 adapter.updateItems(it)
             }
         })

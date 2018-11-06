@@ -2,16 +2,25 @@ package com.ticketswap.assessment.repository_room
 
 import com.ticketswap.assessment.data.persistance.dao.ArtistDao
 import com.ticketswap.assessment.data.persistance.entity.ArtistEntity
-import com.ticketswap.assessment.data.persistance.entity.ExternalUrlEntity
-import com.ticketswap.assessment.data.persistance.entity.ImageEntity
 import com.ticketswap.assessment.repo.InsertArtistRepository
-import com.ticketswap.assessment.repo.model.ArtistsDb
+import com.ticketswap.assessment.repo.model.ItemDb
+import io.reactivex.Completable
+import io.reactivex.Scheduler
 
-class InsertArtistRepositoryImpl(private val artistDao: ArtistDao) : InsertArtistRepository() {
+class InsertArtistRepositoryImpl(private val artistDao: ArtistDao,
+                                 private val io: Scheduler,
+                                 private val main: Scheduler) : InsertArtistRepository() {
 
-    override fun execute(param: ArtistsDb): List<Long> = artistDao.insertArtist(param.items.map {
-        ArtistEntity(it.id, ExternalUrlEntity(0, it.id, it.externalUrls.spotify),
-                it.genres, it.href, it.images.map { img -> ImageEntity(0, it.id, img.height, img.url, img.width) },
-                it.name, it.popularity, it.type, it.uri)
-    })
+    override fun execute(param: List<ItemDb>): Completable = Completable.fromCallable {
+        artistDao.insertArtists(
+                param.map {
+                    ArtistEntity(id = it.id,
+                            image = it.image.sortedBy {
+                                it.width
+                            }.lastOrNull()?.url,
+                            name = it.name, popularity = it.popularity, type = it.type, uri = it.uri)
+                }
+        )
+
+    }.subscribeOn(io).observeOn(main)
 }

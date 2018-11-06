@@ -1,5 +1,6 @@
 package com.ticketswap.assessment.repo
 
-import com.ticketswap.assessment.repo.model.ArtistsDb
+import com.ticketswap.assessment.repo.model.ItemDb
+import io.reactivex.Completable
 
-abstract class InsertArtistRepository : BaseRepository<ArtistsDb, List<Long>>()
+abstract class InsertArtistRepository : BaseRepository<List<ItemDb>, Completable>()

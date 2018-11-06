@@ -1,16 +1,21 @@
 package com.ticketswap.assessment.data.persistance.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.*
 import com.ticketswap.assessment.data.persistance.entity.ArtistEntity
-import io.reactivex.Single
 
 @Dao
-interface ArtistDao {
+abstract class ArtistDao {
     @Query("select * from artistentity where name like :query")
-    fun search(query: String): Single<List<ArtistEntity>>
+    abstract fun searchArtist(query: String): LiveData<List<ArtistEntity>>
 
-    @Insert
-    fun insertArtist(artistEntity: List<ArtistEntity>): List<Long>
+    @Transaction
+    open fun insertArtists(artists: List<ArtistEntity>) {
+        artists.forEach {
+            insertArtist(it)
+        }
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertArtist(artistEntity: ArtistEntity)
 }

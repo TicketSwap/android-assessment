@@ -31,5 +31,7 @@ dependencies {
     implementation ArchComponents.room
     kapt ArchComponents.roomProcessor
     implementation ArchComponents.viewModelLiveData
+    implementation Square.moshi
+    implementation Square.moshi_kotlin
     implementation "android.arch.persistence.room:rxjava2:${Version.roomVersion}"
 }
