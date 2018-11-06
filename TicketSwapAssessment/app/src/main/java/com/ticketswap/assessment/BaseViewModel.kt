@@ -20,6 +20,9 @@ abstract class BaseViewModel : ViewModel() {
         disposables.clear()
     }
 
+    /**
+     * collects all the disposables to dispose them when onCleared called
+     */
     fun update(disposable: Disposable) {
         disposables.add(disposable)
     }

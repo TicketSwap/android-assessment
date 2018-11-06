@@ -10,12 +10,20 @@ import android.widget.TextView
 import com.ticketswap.assessment.R
 import com.ticketswap.assessment.view.image.ImageLoader
 
+/**
+ * @param imageLoader : a wrapper to load the images indirectly and independent of any library
+ * @param placeHolderResId : resource id for place holder
+ * @param itemClickListener : a closure for item click purposes
+ */
 class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
                     val itemClickListener: (SearchAdapterItem) -> Unit) :
         RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     private val items: MutableList<SearchAdapterItem> = mutableListOf()
 
+    /**
+     * uses diffUtil for calculate differences
+     */
     fun updateItems(items: List<SearchAdapterItem>) {
         DiffUtil.calculateDiff(SearchDiff(this.items, items)).also {
             this.items.apply {
@@ -37,10 +45,10 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
         with(items[position]) {
             viewHolder.name.text = name
             imageLoader.load(image, placeHolderResId, viewHolder.image)
-            viewHolder.type.setImageResource(when (type) {
-                SearchItemType.LOCAL -> R.drawable.ic_insert_drive_file
-                SearchItemType.NETWORK -> R.drawable.ic_cloud
-            })
+//            viewHolder.type.setImageResource(when (type) {
+//                SearchItemType.LOCAL -> R.drawable.ic_insert_drive_file
+//                SearchItemType.NETWORK -> R.drawable.ic_cloud
+//            })
         }
     }
 
@@ -48,6 +56,7 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
         init {
             itemView.setOnClickListener { itemClickListener(items[adapterPosition]) }
         }
+
         val image = itemView.findViewById<ImageView>(R.id.image_view_search_item_image)
         val type = itemView.findViewById<ImageView>(R.id.image_view_search_item_type)
         val name = itemView.findViewById<TextView>(R.id.text_view_search_item_name)

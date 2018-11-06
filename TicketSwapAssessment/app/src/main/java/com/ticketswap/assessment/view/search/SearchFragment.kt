@@ -72,6 +72,9 @@ class SearchFragment : BaseFragment() {
 
     private var data: LiveData<List<SearchAdapterItem>>? = null
 
+    /**
+     * remove any observer for live data, change the live data and add new observer
+     */
     private fun observeArtists(observable: LiveData<List<SearchAdapterItem>>) {
         this.data?.removeObservers(this)
         this.data = observable

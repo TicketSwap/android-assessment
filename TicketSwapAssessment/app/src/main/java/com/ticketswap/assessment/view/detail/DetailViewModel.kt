@@ -18,16 +18,23 @@ class DetailViewModel @Inject constructor(
         private val insertArtistRepository: InsertArtistRepository
 ) : BaseViewModel() {
 
+    val isLoading = MutableLiveData<Boolean>()
+
+    // live data for update UI
     fun loadArtistInfoLocal(id: String) = Transformations.map(
             artistRepository.execute(id)
     ) {
         ArtistItem(it.id, it.image.firstOrNull()?.url, it.name, it.popularity, it.type, it.uri)
     }
 
+    /**
+     * @param artistId : artist id for query the API
+     * fetch API data
+     */
     @SuppressLint("CheckResult")
     fun loadArtistInfo(artistId: String) {
         render(DetailState(isLoading = true))
-        artistUseCase.execute(artistId)
+        update(artistUseCase.execute(artistId)
                 .map {
                     DetailState(artistItem = ArtistItem(it.id, it.image, it.name,
                             it.popularity, it.type, it.uri), isLoading = false)
@@ -36,9 +43,8 @@ class DetailViewModel @Inject constructor(
                 .subscribe { it ->
                     render(it)
                 }
+        )
     }
-
-    val isLoading = MutableLiveData<Boolean>()
 
     private fun render(item: DetailState) {
         isLoading.value = item.isLoading

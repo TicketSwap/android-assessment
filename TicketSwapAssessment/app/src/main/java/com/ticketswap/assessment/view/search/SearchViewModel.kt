@@ -68,12 +68,12 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
             return
         }
 
-        insertArtistRepository.execute(item.result.map {
+        update(insertArtistRepository.execute(item.result.map {
             ItemDb(it.id, it.images.map { ImageDb(it.height, it.url, it.width) },
                     it.name, it.popularity, it.type, it.uri)
         }).subscribe {
             Log.d("db", "insert artists to database")
-        }
+        })
     }
 
 }
