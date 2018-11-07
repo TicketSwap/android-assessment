@@ -46,25 +46,30 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
      */
     fun getArtistsFromCloud(searchText: String) {
         queryChangeDisposable?.dispose()
-        queryChangeDisposable = Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
-            Single.timer(1000, TimeUnit.MILLISECONDS)
-        }.flatMap {
-            searchUseCase.execute(SearchRequestDomain(searchText, "artist"))
-        }.map {
-            SearchState(result = it.artists.items)
-        }.subscribeOn(io).observeOn(main).doOnSubscribe {
+        queryChangeDisposable = getArtistObservable(searchText)
+                .subscribeOn(io).observeOn(main).doOnSubscribe {
             update(it)
         }.onErrorReturn { SearchState(ex = it, result = listOf()) }.subscribe { t ->
             render(t)
         }
     }
 
+    fun getArtistObservable(searchText: String): Single<SearchState> =
+            Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
+                Single.timer(1000, TimeUnit.MILLISECONDS, io)
+            }.flatMap {
+                searchUseCase.execute(SearchRequestDomain(searchText, "artist"))
+            }.map {
+                SearchState(result = it.artists.items)
+            }
+
+
     /*
      * handle the error if we have any error, aside that we will insert data to database
      */
-    private fun render(item: SearchState) {
+    fun render(item: SearchState) {
         if (item.ex != null) {
-            errorLiveData.value = item.ex
+            errorLiveData.postValue(item.ex)
             return
         }
 
