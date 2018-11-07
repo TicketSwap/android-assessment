@@ -102,4 +102,5 @@ object ArchComponents{
     val viewModelLiveData = "android.arch.lifecycle:extensions:${Version.lifecycleVersion}"
     val room = "android.arch.persistence.room:runtime:${Version.roomVersion}"
     val roomProcessor = "android.arch.persistence.room:compiler:${Version.roomVersion}"
+    val testing = "android.arch.core:core-testing:${Version.roomVersion}"
 }

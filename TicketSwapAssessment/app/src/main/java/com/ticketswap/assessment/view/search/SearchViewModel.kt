@@ -69,17 +69,20 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
      */
     fun render(item: SearchState) {
         if (item.ex != null) {
-            errorLiveData.postValue(item.ex)
+            errorLiveData.value = item.ex
             return
         }
 
-        update(insertArtistRepository.execute(item.result.map {
-            ItemDb(it.id, it.images.map { ImageDb(it.height, it.url, it.width) },
-                    it.name, it.popularity, it.type, it.uri)
-        }).subscribe {
+        update(insertArtist(item).subscribe {
             Log.d("db", "insert artists to database")
         })
     }
+
+    fun insertArtist(item: SearchState) =
+            insertArtistRepository.execute(item.result.map {
+                ItemDb(it.id, it.images.map { ImageDb(it.height, it.url, it.width) },
+                        it.name, it.popularity, it.type, it.uri)
+            })
 
 }
 

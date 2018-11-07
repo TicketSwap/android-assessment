@@ -86,4 +86,5 @@ dependencies {
     implementation project(':viewemptyretry')
 
     implementation Square.okhttp_intercepter
+    implementation ArchComponents.testing
 }
