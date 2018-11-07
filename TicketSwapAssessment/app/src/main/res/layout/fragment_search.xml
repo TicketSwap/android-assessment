@@ -29,4 +29,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_search_input" />
+
+    <com.ticketswap.assessment.viewemptyretry.EmptyRetryView
+        android:id="@+id/empty_retry_search_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:erv_RetryText="@string/no_artist_show"
+        app:erv_TextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_search_input" />
 </android.support.constraint.ConstraintLayout>

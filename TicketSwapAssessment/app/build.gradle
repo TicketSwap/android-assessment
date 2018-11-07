@@ -79,6 +79,7 @@ dependencies {
     implementation project(':network_client')
     implementation project(':domainokhttp')
     implementation project(':data-network')
+    implementation project(':viewemptyretry')
 
     implementation Square.okhttp_intercepter
 }

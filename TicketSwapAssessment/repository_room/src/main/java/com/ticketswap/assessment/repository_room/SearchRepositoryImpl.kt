@@ -10,7 +10,9 @@ import com.ticketswap.assessment.repo.model.SearchRequest
 
 class SearchRepositoryImpl(private val artistDao: ArtistDao) : SearchRepository() {
     override fun execute(param: SearchRequest): LiveData<List<ItemDb>> =
-            Transformations.map(artistDao.searchArtist("%${param.query}%")
+            Transformations.map(artistDao.searchArtist("${param.query}%".takeIf {
+                param.query?.isNotEmpty() == true
+            } ?: "")
             ) {
                 it.map {
                     ItemDb(it.id, listOf(

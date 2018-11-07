@@ -8,4 +8,5 @@
     <string name="copy_uri">Copy Spotify Uri</string>
     <string name="artist_popularity">Artist Popularity: %d/100</string>
     <string name="uri_copied_to_clipboard">Uri copied to clipboard</string>
+    <string name="no_artist_show">No info for any artist</string>
 </resources>

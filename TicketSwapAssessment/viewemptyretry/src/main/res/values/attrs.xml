@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EmptyRetryView">
+        <attr name="erv_EmptyText" format="string" />
+        <attr name="erv_RetryText" format="string" />
+        <attr name="erv_RetryButtonText" format="string" />
+        <attr name="erv_TextColor" format="reference" />
+        <attr name="erv_ButtonTextColor" format="reference" />
+        <attr name="erv_ButtonBackground" format="reference" />
+    </declare-styleable>
+</resources>

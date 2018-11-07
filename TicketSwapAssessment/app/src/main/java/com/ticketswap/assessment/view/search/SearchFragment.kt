@@ -33,9 +33,11 @@ class SearchFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchViewModel = ViewModelProviders.of(this, facotry).get(SearchViewModel::class.java)
-        adapter = SearchAdapter(imageLoader, R.drawable.placeholder) {
+        adapter = SearchAdapter(imageLoader, R.drawable.placeholder, {
             itemClicked(it)
-        }
+        }, {
+            if (it) empty_retry_search_view.showEmpty() else empty_retry_search_view.hideEmpty()
+        })
     }
 
     private fun itemClicked(item: SearchAdapterItem) {
@@ -68,6 +70,7 @@ class SearchFragment : BaseFragment() {
         recycler_view_search_list.adapter = adapter
         recycler_view_search_list.layoutManager = LinearLayoutManager(context)
 
+        empty_retry_search_view.showEmpty()
     }
 
     private var data: LiveData<List<SearchAdapterItem>>? = null

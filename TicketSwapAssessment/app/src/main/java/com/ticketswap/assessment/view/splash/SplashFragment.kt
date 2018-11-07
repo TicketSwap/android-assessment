@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
@@ -33,10 +34,12 @@ class SplashFragment : BaseFragment() {
         splashViewModel.checkUserIsAuthorized()
 
         splashViewModel.navigateToSearch.observe(this, Observer {
-            findNavController().navigate(R.id.searchFragment)
+            findNavController().navigate(R.id.searchFragment, null,
+                    NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build())
         })
         splashViewModel.navigateToLogin.observe(this, Observer {
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().navigate(R.id.loginFragment, null,
+                    NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build())
         })
     }
 }

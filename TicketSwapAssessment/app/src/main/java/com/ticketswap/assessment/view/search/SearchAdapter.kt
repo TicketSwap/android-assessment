@@ -16,7 +16,8 @@ import com.ticketswap.assessment.view.image.ImageLoader
  * @param itemClickListener : a closure for item click purposes
  */
 class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
-                    val itemClickListener: (SearchAdapterItem) -> Unit) :
+                    val itemClickListener: (SearchAdapterItem) -> Unit,
+                    val isAdapterEmpty: (Boolean) -> Unit) :
         RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     private val items: MutableList<SearchAdapterItem> = mutableListOf()
@@ -29,6 +30,8 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
             this.items.apply {
                 clear()
                 addAll(items)
+            }.also {
+                isAdapterEmpty(it.count() == 0)
             }
         }.dispatchUpdatesTo(this)
     }
@@ -50,6 +53,13 @@ class SearchAdapter(val imageLoader: ImageLoader, val placeHolderResId: Int,
 //                SearchItemType.NETWORK -> R.drawable.ic_cloud
 //            })
         }
+    }
+
+    fun clear() {
+        val count = items.count()
+        items.clear()
+        isAdapterEmpty(true)
+        notifyItemRangeRemoved(0, count - 1)
     }
 
     inner class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
