@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ticketswap.assessment.BaseFragment
 import com.ticketswap.assessment.R
@@ -46,7 +47,9 @@ class LoginFragment : BaseFragment() {
         }
 
         loginViewModel.navigateToSearch.observe(this, Observer {
-            findNavController().navigate(R.id.searchFragment)
+            findNavController().navigate(R.id.searchFragment,
+                    null, NavOptions.Builder().setPopUpTo(R.id.loginFragment, true)
+                    .build())
         })
 
         loginViewModel.isLoginClicked.observe(this, Observer {
@@ -54,7 +57,9 @@ class LoginFragment : BaseFragment() {
         })
 
         loginHelperViewModel.navigateToSearch.observe(this, Observer {
-            findNavController().navigate(R.id.searchFragment)
+            findNavController().navigate(R.id.searchFragment,
+                    null, NavOptions.Builder().setPopUpTo(R.id.loginFragment, true)
+                    .build())
         })
     }
 

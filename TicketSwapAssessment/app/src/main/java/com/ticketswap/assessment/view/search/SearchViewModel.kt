@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(private val searchUseCase: SearchUseCa
     }
 
     fun getArtistObservable(searchText: String): Single<SearchState> =
-            Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 3 }.toSingle().flatMap {
+            Maybe.just(searchText).filter { it.isNotEmpty() && it.length > 2 }.toSingle().flatMap {
                 Single.timer(1000, TimeUnit.MILLISECONDS, io)
             }.flatMap {
                 searchUseCase.execute(SearchRequestDomain(searchText, "artist"))
