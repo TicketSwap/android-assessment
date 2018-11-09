@@ -8,6 +8,11 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion Dependencies.compileSdkVersion
+
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId Dependencies.applicationId
         minSdkVersion Dependencies.minSdkVersion
@@ -36,6 +41,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile project(':spotify-app-remote')
+    compile "com.google.code.gson:gson:2.6.1"
+
     implementation Libs.kotlin_std
     implementation Libs.kotlin_reflect
     implementation Libs.appcompat
@@ -55,6 +64,7 @@ dependencies {
 
     // RxJava
     implementation Reactive.rxJava2
+    //implementation Reactive.rxKotlin2
     implementation Reactive.rxAndroid
 
     // Log
@@ -70,11 +80,19 @@ dependencies {
     // Spotify
     implementation Spotify.spotify
 
+    // LiveData & ViewModel
+    implementation ArchComponents.lifecycle
+
     //Test
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.runner
+    androidTestImplementation TestLibs.rules
     testImplementation TestLibs.mockito
-    testImplementation TestLibs.mockito_kotlin
+    //testImplementation TestLibs.mockito_kotlin
     androidTestImplementation TestLibs.espresso
+    //androidTestImplementation TestLibs.testing_support
+
+    //MockK
+    testImplementation TestLibs.mockk
 
 }
