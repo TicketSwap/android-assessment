@@ -10,13 +10,12 @@ import io.reactivex.schedulers.Schedulers
 class SpotifySearchViewModel(val spotifyApi: SpotifyApi): ViewModel() {
 
     private val adapter: MutableLiveData<RecyclerAdapter> = MutableLiveData()
+    val searchText : MutableLiveData<String> = MutableLiveData()
+    val error : MutableLiveData<String> = MutableLiveData()
+
     init {
         adapter.value = RecyclerAdapter()
     }
-
-    private val searchText_ : MutableLiveData<String> = MutableLiveData()
-
-    private val error : MutableLiveData<String> = MutableLiveData()
 
     fun search() {
         spotifyApi
@@ -33,17 +32,5 @@ class SpotifySearchViewModel(val spotifyApi: SpotifyApi): ViewModel() {
 
     private fun setError(error : String?) {
         this.error.value = error
-    }
-
-    fun getError() : MutableLiveData<String> {
-        return error
-    }
-
-    fun getSearchText() : MutableLiveData<String> {
-        return searchText_
-    }
-
-    fun getAdapter() : MutableLiveData<RecyclerAdapter> {
-        return adapter
     }
 }
