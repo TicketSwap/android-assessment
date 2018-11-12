@@ -10,8 +10,6 @@ import java.util.concurrent.Callable
 
 class SpotifyApi(val client : OkHttpClient) {
 
-
-
     fun searchSpotify(query: String, type: String): Observable<SearchResponse> {
 
         return Observable.defer(object : Callable<ObservableSource<SearchResponse>> {

@@ -13,6 +13,10 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     defaultConfig {
         applicationId Dependencies.applicationId
         minSdkVersion Dependencies.minSdkVersion

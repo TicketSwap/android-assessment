@@ -24,8 +24,6 @@ class ExampleUnitTest {
     @Before
     fun setup() {
 
-
-
         val client = mockk<OkHttpClient>()
         val call = mockk<Call>()
         val response = mockk<Response>()

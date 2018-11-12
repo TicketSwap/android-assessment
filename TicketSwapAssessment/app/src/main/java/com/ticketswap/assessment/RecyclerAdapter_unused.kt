@@ -10,15 +10,15 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var items = listOf<String>()
 
-    override fun onCreateViewHolder(view: ViewGroup, p1: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(view: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         // create a new view
         val textView = LayoutInflater.from(view.context)
-                .inflate(R.layout.item, p0, false)
+                .inflate(R.layout.item, view, false)
         return ViewHolder(textView)
     }
 
-    override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
-        (p0 as ViewHolder).setTitle(items[p1])
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, p1: Int) {
+        (viewHolder as ViewHolder).setTitle(items[p1])
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

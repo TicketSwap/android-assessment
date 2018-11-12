@@ -1,5 +1,6 @@
 package com.ticketswap.assessment.entity
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.ticketswap.assessment.spotify.entity.Entity
 import com.ticketswap.assessment.spotify.entity.Followers

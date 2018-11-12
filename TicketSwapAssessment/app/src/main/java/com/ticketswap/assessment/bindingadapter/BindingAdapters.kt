@@ -1,5 +1,6 @@
 package com.ticketswap.assessment.bindingadapter
 
+import android.R
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.databinding.BindingAdapter
@@ -10,8 +11,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import com.ticketswap.assessment.RecyclerAdapter
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import com.ticketswap.assessment.SingleLayoutAdapter
 import com.ticketswap.assessment.extensions.getParentActivity
+import com.ticketswap.assessment.viewmodel.SpotifySearchViewModel
 
 @BindingAdapter("mutableText")
 fun setMutableEditText(view: EditText, text: MutableLiveData<String>?) {
@@ -28,7 +32,7 @@ fun setMutableEditText(view: EditText, text: MutableLiveData<String>?) {
 }
 
 @BindingAdapter("populate")
-fun setAdapter(view: RecyclerView, adapter: MutableLiveData<RecyclerAdapter>) {
+fun setAdapter(view: RecyclerView, adapter: MutableLiveData<SingleLayoutAdapter>) {
     val parentActivity:AppCompatActivity? = view.getParentActivity()
     if (adapter == null) {
         return
@@ -37,7 +41,7 @@ fun setAdapter(view: RecyclerView, adapter: MutableLiveData<RecyclerAdapter>) {
     view.layoutManager = LinearLayoutManager(parentActivity)
     if(parentActivity != null) {
         adapter.observe(parentActivity, Observer {
-            value -> (view.adapter as RecyclerAdapter).notifyDataSetChanged()
+            value -> (view.adapter as SingleLayoutAdapter).notifyDataSetChanged()
         })
     }
 }
@@ -51,6 +55,23 @@ fun setMutableVisibility(view: View, error : MutableLiveData<String>) {
         })
     }
 }
+
+@BindingAdapter("customOnClick")
+fun setCustomOnClickListener(view: View, viewModel: SpotifySearchViewModel) {
+    // TODO: the following registration doesn't include a lifecycle ownwer, this means that it's prone to memory leaks
+    view.setOnClickListener(View.OnClickListener {
+        viewModel.selectTitle(it.tag.toString())
+    })
+}
+
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, imageUrl: String?) {
+    Picasso.with(view.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.btn_star)
+            .into(view)
+}
+
 
 private fun hasError(error : String?) : Boolean {
     return error != null && !error.isEmpty()

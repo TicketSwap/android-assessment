@@ -5,7 +5,7 @@ object SearchResultData {
     val json1 = """
         {
            "artists":{
-              "href":"https://api.spotify.com/v1/search?query=Hinkstep+Aldrig+Mer&type=artist&offset=0&limit=20",
+              "href":"https://api.spotify.com/v1/search?query=Hinkstep+Aldrig+Mer&type=activity_artist&offset=0&limit=20",
               "items":[
 
               ],
@@ -24,13 +24,13 @@ object SearchResultData {
                        "artists":[
                           {
                              "external_urls":{
-                                "spotify":"https://open.spotify.com/artist/5qUtwLfWFldbxLVUzuWrdZ"
+                                "spotify":"https://open.spotify.com/activity_artist/5qUtwLfWFldbxLVUzuWrdZ"
                              },
                              "href":"https://api.spotify.com/v1/artists/5qUtwLfWFldbxLVUzuWrdZ",
                              "id":"5qUtwLfWFldbxLVUzuWrdZ",
                              "name":"Hinkstep",
-                             "type":"artist",
-                             "uri":"spotify:artist:5qUtwLfWFldbxLVUzuWrdZ"
+                             "type":"activity_artist",
+                             "uri":"spotify:activity_artist:5qUtwLfWFldbxLVUzuWrdZ"
                           }
                        ],
                        "available_markets":[
@@ -132,13 +132,13 @@ object SearchResultData {
                     "artists":[
                        {
                           "external_urls":{
-                             "spotify":"https://open.spotify.com/artist/5qUtwLfWFldbxLVUzuWrdZ"
+                             "spotify":"https://open.spotify.com/activity_artist/5qUtwLfWFldbxLVUzuWrdZ"
                           },
                           "href":"https://api.spotify.com/v1/artists/5qUtwLfWFldbxLVUzuWrdZ",
                           "id":"5qUtwLfWFldbxLVUzuWrdZ",
                           "name":"Hinkstep",
-                          "type":"artist",
-                          "uri":"spotify:artist:5qUtwLfWFldbxLVUzuWrdZ"
+                          "type":"activity_artist",
+                          "uri":"spotify:activity_artist:5qUtwLfWFldbxLVUzuWrdZ"
                        }
                     ],
                     "available_markets":[
@@ -233,13 +233,13 @@ object SearchResultData {
                        "artists":[
                           {
                              "external_urls":{
-                                "spotify":"https://open.spotify.com/artist/5qUtwLfWFldbxLVUzuWrdZ"
+                                "spotify":"https://open.spotify.com/activity_artist/5qUtwLfWFldbxLVUzuWrdZ"
                              },
                              "href":"https://api.spotify.com/v1/artists/5qUtwLfWFldbxLVUzuWrdZ",
                              "id":"5qUtwLfWFldbxLVUzuWrdZ",
                              "name":"Hinkstep",
-                             "type":"artist",
-                             "uri":"spotify:artist:5qUtwLfWFldbxLVUzuWrdZ"
+                             "type":"activity_artist",
+                             "uri":"spotify:activity_artist:5qUtwLfWFldbxLVUzuWrdZ"
                           }
                        ],
                        "available_markets":[
@@ -341,13 +341,13 @@ object SearchResultData {
                     "artists":[
                        {
                           "external_urls":{
-                             "spotify":"https://open.spotify.com/artist/5qUtwLfWFldbxLVUzuWrdZ"
+                             "spotify":"https://open.spotify.com/activity_artist/5qUtwLfWFldbxLVUzuWrdZ"
                           },
                           "href":"https://api.spotify.com/v1/artists/5qUtwLfWFldbxLVUzuWrdZ",
                           "id":"5qUtwLfWFldbxLVUzuWrdZ",
                           "name":"Hinkstep",
-                          "type":"artist",
-                          "uri":"spotify:artist:5qUtwLfWFldbxLVUzuWrdZ"
+                          "type":"activity_artist",
+                          "uri":"spotify:activity_artist:5qUtwLfWFldbxLVUzuWrdZ"
                        }
                     ],
                     "available_markets":[
