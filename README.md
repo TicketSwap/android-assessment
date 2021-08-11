@@ -39,7 +39,7 @@ https://beta.developer.spotify.com/documentation/web-api/reference/search/search
 https://beta.developer.spotify.com/documentation/web-api/reference/tracks/
 https://beta.developer.spotify.com/documentation/web-api/reference/artists/
 
-If you want to use the API key provided in this assessment you need to send us your SHA1 Fingerprint from the Android Keystore. You can also use your own Spotify API key.
+Use your own Spotify API key when developing, we will replace it with ours when reviewing your assignment.
 
 ## Submission
 Please provide a zip of the source code with which we can easily build locally and test out ourselves.
