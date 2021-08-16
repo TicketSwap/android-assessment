@@ -42,7 +42,7 @@ https://beta.developer.spotify.com/documentation/web-api/reference/artists/
 Use your own Spotify API key when developing, we will replace it with ours when reviewing your assignment.
 
 ## Submission
-Please provide a zip of the source code with which we can easily build locally and test out ourselves.
+Please provide a zip of the source code with which we can easily build locally and test out ourselves. If there are issues sending the zip file, please use a service like https://wetransfer.com to upload the zip file there and send us a link to download the files.
 
 ## General notes
 - Write the solution in Kotlin.
